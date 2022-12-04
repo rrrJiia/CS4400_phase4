@@ -1,0 +1,90 @@
+{% for row in table_data %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm text-center">
+            <h1 id="customer_id_details" hidden>{{ row.Customer }}</h1>
+            <h1 id="airline_name_details">{{ row.Airline_Name }}</h1>
+            <h6 id="flight_num_details">Flight Number: {{ row.Flight_Num }}</h6>
+            <h6>Flight Date: {{ row.Flight_Date }}</h6>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-md-center">
+        <div class="col-sm text-right">
+            <h2>{{ row.From_Airport }}</h2>
+            <h6>Departing at {{ row.Departure_Time }}</h6>
+        </div>
+        <div class="col-md-auto" style="text-align:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+          </svg>
+        </div>
+        <div class="col-sm">
+            <h2>{{ row.To_Airport }}</h2>
+            <h6>Arriving at {{ row.Arrival_Time }}</h6>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm text-center">
+            {% if tableType == '0' %}
+            <h6>Seats Remaining: {{ row.num_empty_seats }}/{{ row.Capacity }}</h6>
+            <h6>Ticket Cost: ${{ row.Cost }}</h6>
+            <h6>Estimated Earnings: {{ row.total_spent }}</h6>
+            {% elif tableType == '1' %}
+            <h6>Seats Reserved: {{ row.Num_Seats }}</h6>
+            <h6>Estimated Refund: ${{ '%0.2f'|format((row.Cost|float)*(row.Num_Seats|float)*0.8) }}</h6>
+            {% elif tableType == '2' %}
+            <h6>Seats Remaining: {{ row.num_empty_seats }}/{{ row.Capacity }}</h6>
+            <h6>Ticket Cost: ${{ row.Cost }}</h6>
+            {% endif %}
+            <br>
+            {% if tableType == '2' %}
+                <button type="button" class="book btn btn-warning" data-toggle="modal" data-target="#modal-book">Book</button>
+            {% endif %}
+        </div>
+    </div>
+    {% if removable and tableType == '0' %}
+        <a class="nav-item" href="/view_flights">
+            <button type="button" class="removal btn btn-danger me-2" data-dismiss="modal" aria-label="Close">Remove Flight</button>
+        </a>
+    {% endif %}
+</div>
+{% endfor %}
+<script type='text/javascript'>
+    $(function () {
+        $(".removal").click(function () {
+            var airline_name = $(this).parents("div").find("#airline_name_details").text();
+            var flight_num = $(this).parents("div").find("#flight_num_details").text();
+            flight_num = flight_num.substring(15);
+            if(window.location.pathname != '/my_bookings') {
+                $.ajax({
+                    url: "/remove_flight",
+                    type: 'POST',
+                    data: {airline_name: airline_name, flight_num: flight_num},
+                    success: function() {
+                        window.location.reload();
+                    }
+                });
+            };
+        });
+    });
+</script>
+<script type='text/javascript'>
+    $(function () {
+        $(".book").click(function () {
+            var airline_name = $(this).parents("div").find("#airline_name_details").text();
+            var flight_num = $(this).parents("div").find("#flight_num_details").text();
+            flight_num = flight_num.substring(15);
+            $.ajax({
+                url: "/book_form",
+                type: 'GET',
+                data: {airline_name: airline_name, flight_num: flight_num},
+                success: function(data) {
+                    $("#info").html(data);
+                    $("#info").append(data.htmlresponse);
+                }
+            });
+        });
+    });
+</script>

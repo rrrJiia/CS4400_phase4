@@ -1,0 +1,178 @@
+{% extends "layout.html" %}
+{% block content %}
+{% for row in userdata %}
+    <div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissable" role="alert"> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">         
+                <span aria-hidden="true">x</span>        
+            </button>        
+        {{message}}      
+        {% endfor %}    
+        {% endif %}
+        {% endwith %}         
+    </div>
+    <h1>Welcome back, {{ row.First_Name }} {{ row.Last_Name }}</h1>
+    <hr/>
+    <h3>Today's Date: {{ current_date }}</h3>
+    {% if adminAccess %}
+    <button type="button" class="btn btn-warning me-2" data-toggle="modal" data-target="#modal-system-date">Set System Date</button>
+    {% endif %}
+    <hr/>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm text-left">
+                <h5>Account Permissions:</h5>
+                {% if adminAccess %}
+                <h6>- Admin</h6>
+                {% endif %}
+                {% if ownerAccess %}
+                <h6>- Owner</h6>
+                {% endif %}
+                {% if customerAccess %}
+                <h6>- Customer</h6>
+                {% endif %}
+            </div>
+            {% if customerAccess or ownerAccess %}
+            <div class="col-sm text-left">
+                <div class="text-main">
+                    <h5>User Info:</h5>
+                    <h6>Email: {{ row.Email }}</h6>
+                    <h6>Phone Number: {{ row.Phone_Number }}</h6>
+                    {% if customerAccess %}
+                    <h6>Location: {{ row.Location }}</h6>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            {% if ownerAccess %}
+            <div class="col-sm text-left">
+                <div class="text-main" style="padding: 10px; background-color: #25274d;">
+                    <h5 class="text-main">Delete Owner Account</h5>
+                    <button type="button" class="btn btn-danger md-2" data-toggle="modal" data-target="#modal-delete-owner">Delete</button>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% if (not ownerAccess) or (not customerAccess) %}
+        <hr/>
+        <div class="row">
+            {% if not customerAccess %}
+            <div class="col-sm text-left">
+                <div class="text-main" style="padding: 10px; background-color: #25274d;">
+                    <h5 class="text-main">Create Customer Account</h5>
+                    <a href="/register"><button type="button" class="add-customer btn btn-outline-light md-2">Create</button></a>
+                </div>
+            </div>
+            {% endif %}
+            {% if not ownerAccess %}
+            <div class="col-sm text-left">
+                <div class="text-main" style="padding: 10px; background-color: #25274d;">
+                    <h5 class="text-main">Create Owner Account</h5>
+                    {% if customerAccess %}
+                    <button type="button" class="add-owner btn btn-outline-light md-2">Create
+                    {% else %}
+                    <a href="/register"><button type="button" class="btn btn-outline-light md-2">Create</button></a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="col-sm text-left"></div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="modal fade" id="modal-system-date" tabindex="-1" aria-labelledby="detailsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-negative" id="detailsLabel">Set System Date</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ modal_messages() }}
+                    <p>Date:  <input type="date" id="set-date" name="set-date"></p>
+                    <a class="nav-item" href="/account">
+                        <button type="button" class="set-date btn btn-danger me-2" data-dismiss="modal" aria-label="Close">Set Date</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-delete-owner" tabindex="-1" aria-labelledby="deleteOwnerLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-primary-color">
+                <div class="modal-header">
+                    <h5 class="modal-title text-main" id="deleteOwnerLabel">Confirm Delete Owner Account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ modal_messages() }}
+                    <h5 class="text-main">Are You Sure You Want To Delete Your Account?</h5>
+                    <a class="nav-item" href="/account">
+                        <button type="button" class="delete-owner btn btn-danger me-2" data-dismiss="modal" aria-label="Close">Delete</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% endblock content %}
+{% block scripts %}
+<script>
+    $(function () {
+        $(".set-date").click(function () {
+            var set_date = $(this).parents("div").find("#set-date").val();
+            $.ajax({
+                url: "/set_system_date",
+                type: 'POST',
+                data: {set_date: set_date},
+                success: function() {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(".delete-owner").click(function () {
+            $.ajax({
+                url: "/remove_owner",
+                success: function() {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(".delete-customer").click(function () {
+            $.ajax({
+                url: "/remove_customer",
+                success: function() {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(".add-owner").click(function () {
+            $.ajax({
+                url: "/register_owner",
+                success: function() {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
+{% endblock scripts %}

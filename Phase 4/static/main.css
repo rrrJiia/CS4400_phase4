@@ -1,0 +1,186 @@
+body {
+    background: #464866;
+    color: #25274d;
+    margin-top: 3.5rem;
+  }
+  
+  h1, h2, h4, h5, h6 {
+    color: #25274d;
+  }
+
+  h3 {
+      color: #25274d;
+  }
+
+  .container-fluid {
+    overflow: hidden;
+  }
+  
+  .bg-steel {
+    background-color: #5f788a;
+  }
+
+  .bg-primary-color-gray {
+      background-color: #464866;
+  }
+
+  .bg-primary-color {
+      background-color: #25274d;
+  }
+
+  .bg-neutral-color {
+      background-color: #fafafa;
+  }
+
+  .bg-secondary-color {
+      background-color: #2e9cca;
+  }
+
+  .bg-secondary-color-gray {
+      background-color: #29648a;
+  }
+
+  .text-muted {
+    color: #5f788a;
+  }
+
+  .text-main {
+    color: #fafafa;
+  }
+
+  .text-negative {
+    color: #464866;
+  }
+
+  .text-selected {
+    color: #2e9cca;
+  }
+  
+  .text-selected-2 {
+    color: #2e9cca;
+  }
+
+  .site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+  }
+  
+  .site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+  }
+  
+  .site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+  }
+  
+  .content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+  
+  .article-title {
+    color: #444444;
+  }
+  
+  a.article-title:hover {
+    color: #428bca;
+    text-decoration: none;
+  }
+  
+  .article-content {
+    white-space: pre-line;
+  }
+  
+  .article-img {
+    height: 65px;
+    width: 65px;
+    margin-right: 16px;
+  }
+  
+  .article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e3e3e3
+  }
+  
+  .article-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .article-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+  }
+  
+  .account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .account-heading {
+    font-size: 2.5rem;
+  }
+
+  .btn.btn-signup {
+      background-color: #2e9cca;
+  }
+
+  a:hover {
+    color: #2e9cca;
+  }
+
+  * {
+    padding:0;
+    margin:0;
+  }
+  
+  html, body {
+    height:100%;
+    display:flex;
+    flex-direction:column;
+  }
+  
+  body > * {
+    flex-shrink: 0;
+  }
+
+  .test {
+    margin: 0;
+  }
+
+  .container {
+    padding: 15px;
+  }
+
+  .container-fluid {
+    flex-grow: 1;
+    padding: 0;
+  }
+
+  .row  {
+    height: 100%;
+    padding: 0;
+  }
+
+  .row-custom {
+    display: -webkit-box;
+  }
+
+  .sidebar {
+    padding: 15px;
+  }
+
+  .modal-sp {
+    max-width: none;
+    width: 60%;
+  }
+
+  .modal-center {
+    margin: 5rem auto;
+  }

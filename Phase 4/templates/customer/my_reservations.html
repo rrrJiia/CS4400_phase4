@@ -1,0 +1,387 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>My Reservations</h1>
+    {% if past_reservations.rowcount != 0 %}
+    <hr/>
+    <h3>Past Reservations</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" id="myPastTable">
+            <thead>
+                <tr>
+                    <th>Property Name</th>
+                    <th>Owner Email</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Number of Guests</th>
+                    <th>Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in past_reservations %}
+                <h1 id="customer-rate" hidden>{{ row.Customer }}</h1>
+                <tr>
+                    <td id="property-rate">{{ row.Property_Name }}</td>
+                    <td><u id="owner-rate">{{ row.Owner_Email }}</u><br>
+                        {% if not row.Score %}
+                        <button type="button" class="rate btn btn-warning me-2" data-toggle="modal" data-target="#modal-rate">Rate</button>
+                        {% else %}
+                            {% if row.Score >= 1 %}<span style="font-size:150%;color:#ffc107;">&starf;</span>{% endif %}
+                            {% if row.Score >= 2 %}<span style="font-size:150%;color:#ffc107;">&starf;</span>{% endif %}
+                            {% if row.Score >= 3 %}<span style="font-size:150%;color:#ffc107;">&starf;</span>{% endif %}
+                            {% if row.Score >= 4 %}<span style="font-size:150%;color:#ffc107;">&starf;</span>{% endif %}
+                            {% if row.Score >= 5%}<span style="font-size:150%;color:#ffc107;">&starf;</span>{% endif %}
+                        {% endif %}
+                    </td>
+                    <td>{{ row.Start_Date }}</td>
+                    <td>{{ row.End_Date }}</td>
+                    <td>{{ row.Num_Guests }}</td>
+                    <td>{{ row.Street }}, {{ row.City }}, {{ row.State }}, {{ row.Zip }}</td>
+                    <td> 
+                        <button type="button" class="details btn btn-warning me-2" data-toggle="modal" data-target="#modal-details">Details</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    {% if current_reservation.rowcount != 0 %}
+    <hr/>
+    <h3>Current Reservation</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" id="myCurrentTable">
+            <thead>
+                <tr>
+                    <th>Property Name</th>
+                    <th>Owner Email</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Number of Guests</th>
+                    <th>Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in current_reservation %}
+                <h1 id="customer-current" hidden>{{ row.Customer }}</h1>
+                <tr>
+                    <td id="property-current">{{ row.Property_Name }}</td>
+                    <td><u id="owner-current">{{ row.Owner_Email }}</u><br>
+                        {% if not row.Score %}
+                        <button type="button" class="rate-current btn btn-warning me-2" data-toggle="modal" data-target="#modal-rate-current">Rate</button>
+                        {% else %}
+                            {% if row.Score >= 1 %}<span style="font-size:150%;color:#ffc107;">&starf;</span>{% endif %}
+                            {% if row.Score >= 2 %}<span style="font-size:150%;color:#ffc107;">&starf;</span>{% endif %}
+                            {% if row.Score >= 3 %}<span style="font-size:150%;color:#ffc107;">&starf;</span>{% endif %}
+                            {% if row.Score >= 4 %}<span style="font-size:150%;color:#ffc107;">&starf;</span>{% endif %}
+                            {% if row.Score >= 5%}<span style="font-size:150%;color:#ffc107;">&starf;</span>{% endif %}
+                        {% endif %}
+                    </td>
+                    <td>{{ row.Start_Date }}</td>
+                    <td>{{ row.End_Date }}</td>
+                    <td>{{ row.Num_Guests }}</td>
+                    <td>{{ row.Street }}, {{ row.City }}, {{ row.State }}, {{ row.Zip }}</td>
+                    <td> 
+                        <button type="button" class="details-current btn btn-warning me-2" data-toggle="modal" data-target="#modal-details">Details</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    {% if future_reservations.rowcount != 0 %}
+    <hr/>
+    <h3>Future Reservations</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" id="myFutureTable">
+            <thead>
+                <tr>
+                    <th>Property Name</th>
+                    <th>Owner Email</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Number of Guests</th>
+                    <th>Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in future_reservations %}
+                <h1 id="customer-future" hidden>{{ row.Customer }}</h1>
+                <tr>
+                    <td id="property-future">{{ row.Property_Name }}</td>
+                    <td id="owner-future"><u>{{ row.Owner_Email }}</u></td>
+                    <td>{{ row.Start_Date }}</td>
+                    <td>{{ row.End_Date }}</td>
+                    <td>{{ row.Num_Guests }}</td>
+                    <td>{{ row.Street }}, {{ row.City }}, {{ row.State }}, {{ row.Zip }}</td>
+                    <td> 
+                        {% if row.Was_Cancelled == 0 %}
+                        <button type="button" class="details-future btn btn-warning me-2" data-toggle="modal" data-target="#modal-cancel">Details</button>
+                        {% else %}
+                        Cancelled
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    {% if past_reservations.rowcount == 0 and current_reservation.rowcount == 0 and future_reservations.rowcount == 0 %}
+    <hr/>
+    <h3>No Reservations Found</h3>
+    {% endif %}
+    <br>
+    <a class="nav-item" href="/reserve">
+        <button type="button" class="btn btn-signup">Reserve Now!</button>
+    </a>
+    <div class="modal fade" id="modal-details" tabindex="-1" aria-labelledby="detailsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sp">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-negative" id="detailsLabel">Reservation Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ modal_messages() }}
+                    <h1 id="info-details"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-rate" tabindex="-1" aria-labelledby="rating-info" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-primary-color">
+                <div class="modal-header">
+                    <h5 class="modal-title text-main" id="rating-info"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ modal_messages() }}
+                    <p class="text-main">Rating:  <input type="number" id="set-rating" name="set-rating" min="1" max="5" value="5"></p>
+                    <a class="nav-item" href="/my_reservations">
+                        <button type="button" class="give-rating btn btn-warning me-2" data-dismiss="modal" aria-label="Close">Give Rating</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-rate-current" tabindex="-1" aria-labelledby="rating-info-current" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-primary-color">
+                <div class="modal-header">
+                    <h5 class="modal-title text-main" id="rating-info-current"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ modal_messages() }}
+                    <p class="text-main">Rating:  <input type="number" id="set-current" name="set-current" min="1" max="5" value="5"></p>
+                    <a class="nav-item" href="/my_reservations">
+                        <button type="button" class="give-rating-current btn btn-warning me-2" data-dismiss="modal" aria-label="Close">Give Rating</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-rate-property" tabindex="-1" aria-labelledby="rating-info" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-primary-color">
+                <div class="modal-header">
+                    <h5 class="modal-title text-main" id="property-rating-info"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ modal_messages() }}
+                    <p id="property-rating-owner" hidden></p>
+                    <p class="text-main">Rating:  <input type="number" id="set-property-rating" name="set-property-rating" min="1" max="5" value="5"></p>
+                    <p class="text-main">Comments: </p>
+                    <textarea id="rating-content" rows="10" cols="60"></textarea>
+                    <br>
+                    <a class="nav-item" href="/my_reservations">
+                        <button type="button" class="give-property-rating btn btn-warning me-2" data-dismiss="modal" aria-label="Close">Give Rating</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-cancel" tabindex="-1" aria-labelledby="cancelLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sp">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-negative" id="cancelLabel">Reservation Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ modal_messages() }}
+                    <h1 id="info"></h1>
+                    <a class="nav-item" href="/my_reservations">
+                        <button type="button" class="removal btn btn-danger me-2" data-dismiss="modal" aria-label="Close">Cancel Reservation</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block scripts %}
+<script>
+    $(document).ready( function () {
+    $('#myPastTable').DataTable({"pageLength": 25});
+} );
+</script>
+<script>
+    $(document).ready( function () {
+    $('#myCurrentTable').DataTable({"pageLength": 25});
+} );
+</script>
+<script>
+    $(document).ready( function () {
+    $('#myFutureTable').DataTable({"pageLength": 25});
+} );
+</script>
+<script type='text/javascript'>
+    $(function () {
+        $(".details").click(function () {
+            var customer_id = $(this).parents("div").find("#customer-rate").text();
+            var property_name = $(this).parents("tr").find("#property-rate").text();
+            var owner_id = $(this).parents("tr").find("#owner-rate").text();
+            var viewType = 1;
+            $.ajax({
+                url: "/reservation_details",
+                type: 'POST',
+                data: {customer_id: customer_id, property_name: property_name, owner_id: owner_id, viewType: viewType},
+                success: function(data) {
+                    $("#info-details").html(data);
+                    $("#info-details").append(data.htmlresponse);
+                }
+            });
+        });
+    });
+</script>
+<script type='text/javascript'>
+    $(function () {
+        $(".details-current").click(function () {
+            var customer_id = $(this).parents("div").find("#customer-current").text();
+            var property_name = $(this).parents("tr").find("#property-current").text();
+            var owner_id = $(this).parents("tr").find("#owner-current").text();
+            var viewType = 1;
+            $.ajax({
+                url: "/reservation_details",
+                type: 'POST',
+                data: {customer_id: customer_id, property_name: property_name, owner_id: owner_id, viewType: viewType},
+                success: function(data) {
+                    $("#info-details").html(data);
+                    $("#info-details").append(data.htmlresponse);
+                }
+            });
+        });
+    });
+</script>
+<script type='text/javascript'>
+    $(function () {
+        $(".details-future").click(function () {
+            var customer_id = $(this).parents("div").find("#customer-future").text();
+            var property_name = $(this).parents("tr").find("#property-future").text();
+            var owner_id = $(this).parents("tr").find("#owner-future").text();
+            var viewType = 3;
+            $.ajax({
+                url: "/reservation_details",
+                type: 'POST',
+                data: {customer_id: customer_id, property_name: property_name, owner_id: owner_id, viewType: viewType},
+                success: function(data) {
+                    $("#info").html(data);
+                    $("#info").append(data.htmlresponse);
+                }
+            });
+        });
+    });
+</script>
+<script type='text/javascript'>
+    $(function () {
+        $(".removal").click(function () {
+            var customer_id = document.getElementById("customer_id_details").innerHTML;
+            var property_name = document.getElementById("property_name_details").innerHTML;
+            var owner_id = document.getElementById("owner_id_details").innerHTML.split(': ')[1];
+            $.ajax({
+                url: "/cancel_reservation",
+                type: 'POST',
+                data: {customer_id: customer_id, property_name: property_name, owner_id: owner_id},
+                success: function() {
+                    window.location.reload();
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(".rate").click(function () {
+            var owner_id = $(this).parents("div").find("#owner-rate").text();
+            var s = "Rate " + owner_id;
+            $("#rating-info").html(s);
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(".rate-current").click(function () {
+            var owner_id = $(this).parents("div").find("#owner-current").text();
+            var s = "Rate " + owner_id;
+            $("#rating-info-current").html(s);
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(".give-rating").click(function () {
+            var customer_id = $(this).parents("div").find("#customer-rate").text();
+            var owner_id = $(this).parents("div").find("#owner-rate").text();
+            var rating = $(this).parents("div").find("#set-rating").val();
+            if (rating != '') {
+                $.ajax({
+                    url: "/customer_rates_owner",
+                    type: 'POST',
+                    data: {customer_id: customer_id, owner_id: owner_id, rating: rating},
+                    success: function() {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $(".give-rating-current").click(function () {
+            var customer_id = $(this).parents("div").find("#customer-current").text();
+            var owner_id = $(this).parents("div").find("#owner-current").text();
+            var rating = $(this).parents("div").find("#set-current").val();
+            if (rating != '') {
+                $.ajax({
+                    url: "/customer_rates_owner",
+                    type: 'POST',
+                    data: {customer_id: customer_id, owner_id: owner_id, rating: rating},
+                    success: function() {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock scripts %}

@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissable" role="alert"> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">         
+            <span aria-hidden="true">x</span>        
+        </button>        
+    {{message}}               
+</div>
+    {% endfor %}    
+    {% endif %}
+    {% endwith %}
+    
+<div class="slideshow-container">
+    <div class="mySlides fade">
+        <img src="static/images/nyc.jpg" style="width:100%">
+        <div class="text">New York, New York</div>
+    </div>
+
+    <div class="mySlides fade">
+        <img src="static/images/venice.jpg" style="width:100%">
+        <div class="text">Venice, Italy</div>
+    </div>
+
+    <div class="mySlides fade">
+        <img src="static/images/maldives.jpg" style="width:100%">
+       <div class="text">The Maldives</div>
+    </div>
+
+    <div class="center-group">
+        <h1 class="text-main" style="text-align: center;">Book your dream vacation today!</h1>
+        <div class="center-buttons">
+            {% if username == '' %}
+            <a class="nav-item" href="/login">
+                <button type="button" class="btn btn-1">Login</button>
+            </a>
+            <a class="nav-item" href="/register">
+                <button type="button" class="btn btn-2">Register</button>
+            </a>
+            {% else %}
+            <a class="nav-item" href="/book">
+                <button type="button" class="btn btn-1">Book Now</button>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    var slideIndex = 0;
+    showSlides();
+    var containers = document.getElementsByClassName("container")
+    containers[0].className = "container-fluid";
+
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 5000); // Change image every 5 seconds
+    }
+
+</script>
+<style>
+    .btn.btn-1 {
+        background-color: #fafafa00;
+        border-color: #fafafa;
+        color: #fafafa;
+        font-size: 24px;
+        margin: 8px 10px
+    }
+    .btn.btn-1:hover {
+        background-color: #fafafa;
+        border-color: #fafafa;
+        color: #000000;
+        font-size: 24px;
+        margin: 8px 10px
+    }
+
+    .btn.btn-2 {
+        background-color: #2e9cca;
+        color: #000000;
+        font-size: 24px;
+        margin: 8px 10px
+    }
+    .btn.btn-2:hover {
+        background-color: #25274d;
+        color: #fafafa;
+        font-size: 24px;
+        margin: 8px 10px
+    }
+
+    .center-buttons {
+        margin: 0;
+        position: absolute;
+        left: 50%;
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
+
+    .center-group {
+        position: absolute;
+        width: 800px;
+        height: 136px;
+        z-index: 15;
+        top: 50%;
+        left: 50%;
+        margin: -68px 0 0 -400px;
+        background-color: hsla(0, 0%, 0%, 0.2);
+        border-radius: 10px;
+    }
+
+    .slideshow-container {
+        max-width: 5000px;
+        position: relative;
+        margin: 0;
+    }
+
+    /* Hide the images by default */
+    .mySlides {
+        display: none;
+    }
+
+    /* Caption text */
+    .text {
+        color: #f2f2f2;
+        font-size: 15px;
+        padding: 8px 12px;
+        position: absolute;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Fading animation */
+    .fade {
+        animation-name: fade;
+        animation-duration: 5s;
+    }
+    @keyframes fade {
+        from {opacity: .85}
+        to {opacity: 1}
+    }
+</style>
+{% endblock content %}

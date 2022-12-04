@@ -1,0 +1,61 @@
+<!-- Reservation Form -->
+
+<div class="container">
+    <style>
+    form#reserve-form label {
+        width: 150px;
+        text-align: right;
+        display: inline-block;
+        padding-right: 5px;
+        font-weight: bold;
+    }
+    </style>
+    <form method = 'post' action="reserve_form" id="reserve-form">
+        <fieldset class="form-group">
+            <div class="form-group">
+              {{ form.property_name.label }}
+              {{ form.property_name(style="background-color:#545454;color:#FAFAFA;border:0;border:solid 1.3px #D4D4D4;") }}
+              <br>
+              {{ form.owner_email.label }}
+              {{ form.owner_email(style="background-color:#545454;color:#FAFAFA;border:0;border:solid 1.3px #D4D4D4;") }}
+              <br>
+              {{ form.customer_email.label }}
+              {{ form.customer_email(style="background-color:#545454;color:#FAFAFA;border:0;border:solid 1.3px #D4D4D4;") }}
+              <br>
+              {{ form.start_date.label }}
+              {{ form.start_date }}
+              <br>
+              {{ form.end_date.label }}
+              {{ form.end_date }}
+              <br>
+              {{ form.num_guests.label }}
+              {{ form.num_guests }}
+              <br>
+              {{ form.current_date.label }}
+              {{ form.current_date(style="background-color:#545454;color:#FAFAFA;border:0;border:solid 1.3px #D4D4D4;") }}
+              <hr/>
+              <h4 class="text-main">Total Cost: <span id="cost"></span></h4>
+            </div>
+            {{form.submit(class="btn btn-warning md-2")}}
+        </fieldset>
+    </form>
+</div>
+<script type='text/javascript'>
+    var cost = {{ cost }};
+    $(function () {
+        var start_date, end_date;
+        $("#start_date").change(function () {updateCost()});
+        $("#end_date").change(function () {updateCost()});
+    });
+
+    function updateCost() {
+        start_date = new Date($("#start_date").val());
+        end_date = new Date($("#end_date").val());
+        days = Math.round((end_date-start_date)/(1000*60*60*24));
+        if (days > 0) {
+            $("#cost").text(cost * days);
+        } else {
+            $("#cost").text("Invalid Date");
+        }
+    }
+</script>
