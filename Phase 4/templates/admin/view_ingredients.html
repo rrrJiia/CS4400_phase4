@@ -1,24 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1 class="h2">Owners</h1>
+    <h1 class="h2">Ingredients</h1>
     <div class="table-responsive">
         <table class="table table-striped table-sm" id="myTable">
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Average Rating</th>
-                    <th>Number of Properties Owned</th>
-                    <th>Average Property Rating</th>
+                    <th>Location</th>
+                    <th>Amount_available</th>
+                    <th>Low_price</th>
+                    <th>High_price</th>
                 </tr>
             </thead>
 
             <tbody>
                 {% for row in table_data %}
                 <tr>
-                    <td>{{ row.owner_name }}</td>
-                    <td>{% if row.avg_rating %}{{ row.avg_rating }}{% endif %}</td>
-                    <td>{{ row.num_properties_owned }}</td>
-                    <td>{% if row.avg_property_rating %}{{ row.avg_property_rating }}{% endif %}</td>
+                    <td>{{ row.iname }}</td>
+                    <td>{{ row.hover }</td>
+                    <td>{{ row.total }}</td>
+                    <td>{{ row.minp }}</td>
+                    <td>{{ row.maxp }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
