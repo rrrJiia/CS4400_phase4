@@ -18,6 +18,4 @@ db = SQLAlchemy(app, metadata=metadata_obj)
 connection = engine.connect()
 raw_connection = engine.raw_connection()
 cursor = raw_connection.cursor()
-a = connection.execute("SELECT * FROM {}".format('display_service_view'))
-ret = cursor.callproc('add_owner', ['lfibonacci5', 'Leonardo', 'Fibonacci', '144 Golden Ratio Spiral', '1170-01-01'])
-raw_connection.commit()
+

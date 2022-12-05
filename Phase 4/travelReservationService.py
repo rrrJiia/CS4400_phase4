@@ -281,122 +281,44 @@ def my_properties():
 #######################################################
 # Administrative Access
 #######################################################
-@app.route("/view_airports")
-def view_airports():
-    if not adminAccess:
-        return redirect(url_for('account'))
-    timezone = "none"
-    try:
-        timezone = request.args["time-zone"]
-        if (timezone != "none"):
-            q = text("SELECT * FROM view_airports_condensed WHERE time_zone = \'{0}\'".format(timezone))
-        else:
-            raise KeyError()
-    except KeyError:
-        q = text("SELECT * FROM view_airports_condensed")
-    airport_view = connection.execute(q)
-    return render_template("admin/view_airports.html", timezone=timezone, table_data=airport_view, homebar=3,
-                           username=username, pageSelect='view_airports', adminAccess=adminAccess,
-                           customerAccess=customerAccess, ownerAccess=ownerAccess)
-
-
-@app.route("/view_airlines")
-def view_airlines():
-    if not adminAccess:
-        return redirect(url_for('account'))
-    q = text("SELECT * FROM view_airlines")
-    airline_view = connection.execute(q)
-    return render_template("admin/view_airlines.html", table_data=airline_view, homebar=3, username=username,
-                           pageSelect='view_airlines', adminAccess=adminAccess, customerAccess=customerAccess,
-                           ownerAccess=ownerAccess)
-
-
-@app.route("/view_flights", methods=['GET', 'POST'])
-def view_flights():
-    if not adminAccess:
-        return redirect(url_for('account'))
-    q = text("SELECT airline_name FROM view_airlines")
-    airline_view = connection.execute(q)
-    form = ScheduleFlightForm()
-    form.airline_name.choices = [airline[0] for airline in airline_view]
-    form.current_date.data = current_date
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            flight_num = request.form['flight_num']
-            airline_name = request.form['airline_name']
-            from_airport = request.form['from_airport']
-            to_airport = request.form['to_airport']
-            departure_time = request.form['departure_time']
-            arrival_time = request.form['arrival_time']
-            flight_date = request.form['flight_date']
-            cost = request.form['cost']
-            capacity = request.form['capacity']
-            q = text(
-                "CALL schedule_flight(\'{0}\', \'{1}\', \'{2}\', \'{3}\', \'{4}:00\', \'{5}:00\', \'{6}\', {7}, {8}, \'{9}\')".format(
-                    flight_num, airline_name, from_airport, to_airport, departure_time, arrival_time, flight_date, cost,
-                    capacity, current_date))
-            try:
-                results = connection.execute(q)
-                connection.execute('commit')
-                result = results.first()[0]
-                if result == 1:
-                    flash('Flights Scheduled Successfully!')
-                    return redirect(url_for('view_flights'))
-                else:
-                    flash(str(result))
-            except Exception as e:
-                flash(e)
-        else:
-            flash('Please enter valid info.')
-        print(form.errors)
-    q = text(
-        "SELECT * FROM flight AS F JOIN view_flight ON Flight_Num=flight_id AND Airline_Name=airline WHERE F.Flight_Date < \'{0}\'".format(
-            current_date))
-    past_flights = connection.execute(q)
-    q = text(
-        "SELECT * FROM flight AS F JOIN view_flight ON Flight_Num=flight_id AND Airline_Name=airline WHERE F.Flight_Date = \'{0}\'".format(
-            current_date))
-    current_flights = connection.execute(q)
-    q = text(
-        "SELECT * FROM flight AS F JOIN view_flight ON Flight_Num=flight_id AND Airline_Name=airline WHERE F.Flight_Date > \'{0}\'".format(
-            current_date))
-    future_flights = connection.execute(q)
-    return render_template("admin/view_flights.html", form=form, past_flights=past_flights,
-                           current_flights=current_flights, future_flights=future_flights, homebar=3, username=username,
-                           pageSelect='view_flights', adminAccess=adminAccess, customerAccess=customerAccess,
-                           ownerAccess=ownerAccess)
-
-
-@app.route("/view_customers")
-def view_customers():
-    if not adminAccess:
-        return redirect(url_for('account'))
-    q = text("SELECT * FROM view_customers")
-    customer_view = connection.execute(q)
-    return render_template("admin/view_customers.html", table_data=customer_view, homebar=3, username=username,
-                           pageSelect='view_customers', adminAccess=adminAccess, customerAccess=customerAccess,
-                           ownerAccess=ownerAccess)
-
 
 @app.route("/view_owners")
 def view_owners():
-    if not adminAccess:
-        return redirect(url_for('account'))
-    q = text("SELECT * FROM view_owners")
-    owner_view = connection.execute(q)
-    return render_template("admin/view_owners.html", table_data=owner_view, homebar=3, username=username,
+    tmp = display_view("display_owner_view")
+    return render_template("view/view_owners.html", table_data=tmp, homebar=3, username=username,
                            pageSelect='view_owners', adminAccess=adminAccess, customerAccess=customerAccess,
                            ownerAccess=ownerAccess)
 
+@app.route("/view_employees")
+def view_employees():
+    tmp = display_view("display_employee_view")
+    return render_template("view/view_employees.html", table_data=tmp, homebar=3, username=username,
+                           pageSelect='view_employee', adminAccess=adminAccess, customerAccess=customerAccess,
+                           ownerAccess=ownerAccess)
 
-@app.route("/view_properties")
-def view_properties():
-    if not adminAccess:
-        return redirect(url_for('account'))
-    q = text("SELECT * FROM view_properties NATURAL JOIN property")
-    property_view = connection.execute(q)
-    return render_template("admin/view_properties.html", table_data=property_view, homebar=3, username=username,
-                           pageSelect='view_properties', adminAccess=adminAccess, customerAccess=customerAccess,
+@app.route("/view_pilots")
+def view_pilots():
+    tmp = display_view("display_pilot_view")
+    return render_template("view/view_pilots.html", table_data=tmp, homebar=3, username=username,
+                           pageSelect='view_pilots', adminAccess=adminAccess, customerAccess=customerAccess,
+                           ownerAccess=ownerAccess)
+@app.route("/view_locations")
+def view_locations():
+    tmp = display_view("display_location_view")
+    return render_template("view/view_locations.html", table_data=tmp, homebar=3, username=username,
+                           pageSelect='view_locations', adminAccess=adminAccess, customerAccess=customerAccess,
+                           ownerAccess=ownerAccess)
+@app.route("/view_ingredients")
+def view_ingredients():
+    tmp = display_view("display_ingredient_view")
+    return render_template("view/view_ingredients.html", table_data=tmp, homebar=3, username=username,
+                           pageSelect='view_ingredients', adminAccess=adminAccess, customerAccess=customerAccess,
+                           ownerAccess=ownerAccess)
+@app.route("/view_services")
+def view_services():
+    tmp = display_view("display_service_view")
+    return render_template("view/view_services.html", table_data=tmp, homebar=3, username=username,
+                           pageSelect='view_services', adminAccess=adminAccess, customerAccess=customerAccess,
                            ownerAccess=ownerAccess)
 
 

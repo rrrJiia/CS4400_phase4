@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1 class="h2">Employees</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" id="myTable">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>taxID</th>
+                    <th>Salary</th>
+                    <th>Hired</th>
+                    <th>Employee Experience</th>
+                    <th>LicenseID</th>
+                    <th>Piloting Experience</th>
+                    <th>Manager Status</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {% for row in table_data %}
+                <tr>
+                    <td> {{ row.username }} </td>
+                    <td> {{ row.taxID }} </td>
+                    <td> {{ row.salary }} </td>
+                    <td> {{ row.hired }} </td>
+                    <td> {{ row.employee_experience }} </td>
+                    <td> {{ row.licenseID }} </td>
+                    <td> {{ row.piloting_experience }} </td>
+                    <td> {{ row.manager_status }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
+{% block scripts %}
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable({"pageLength": 25});
+} );
+</script>
+{% endblock scripts %}

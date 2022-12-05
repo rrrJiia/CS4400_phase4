@@ -1,24 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1 class="h2">Airlines</h1>
+    <h1 class="h2">Pilots</h1>
     <div class="table-responsive">
         <table class="table table-striped table-sm" id="myTable">
             <thead>
                 <tr>
-                    <th>Airline Name</th>
-                    <th>Rating</th>
-                    <th>Total Flights</th>
-                    <th>Minimum Flight Cost</th>
+                    <th>Username</th>
+                    <th>LicenseID</th>
+                    <th>Experience</th>
+                    <th>Number of Drones</th>
+                    <th>Number of Locations</th>
                 </tr>
             </thead>
-    
+
             <tbody>
                 {% for row in table_data %}
                 <tr>
-                    <td> {{ row.airline_name }} </td>
-                    <td> {{ row.rating }} </td>
-                    <td> {{ row.total_flights }} </td>
-                    <td> {{ row.min_flight_cost }} </td>
+                    <td> {{ row.username }} </td>
+                    <td> {{ row.licenseID }} </td>
+                    <td> {{ row.experience }} </td>
+                    <td> {{ row.num_drones }} </td>
+                    <td> {{ row.num_locations }} </td>
                 </tr>
                 {% endfor %}
             </tbody>
