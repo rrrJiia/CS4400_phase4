@@ -16,11 +16,11 @@
             <tbody>
                 {% for row in table_data %}
                 <tr>
-                    <td>{{ row.iname }}</td>
-                    <td>{{ row.hover }</td>
-                    <td>{{ row.total }}</td>
-                    <td>{{ row.minp }}</td>
-                    <td>{{ row.maxp }}</td>
+                    <td>{{ row.ingredient_name }}</td>
+                    <td>{{ row.location }</td>
+                    <td>{{ row.amount_available }}</td>
+                    <td>{{ row.low_price }}</td>
+                    <td>{{ row.high_price }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
