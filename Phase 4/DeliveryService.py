@@ -1,8 +1,7 @@
 from typing import Iterable
 from application import app
 from db import *
-from flask import render_template, url_for, flash, redirect, request, jsonify
-from forms import BookingForm, RegistrationForm, LoginForm, ReservationForm, ScheduleFlightForm, AddPropertyForm
+from flask import render_template, flash, request
 from datetime import date
 
 current_date = '1999-01-01'

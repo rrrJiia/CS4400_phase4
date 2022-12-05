@@ -1,0 +1,111 @@
+{
+  "add_owner": [
+    "username",
+    "first_name",
+    "address",
+    "birthdate"
+  ],
+  "add_employee": [
+    "username",
+    "first_name",
+    "address",
+    "birthdate",
+    "taxID",
+    "hired",
+    "employee_experience",
+    "salary"
+  ],
+  "add_pilot_role": [
+    "username",
+    "licenseID"
+  ],
+  "add_worker_role": [
+    "username"
+  ],
+  "add_ingredient": [
+    "barcode",
+    "iname"
+  ],
+  "add_drone": [
+    "id",
+    "tag",
+    "fuel",
+    "sales",
+    "flown_by"
+  ],
+  "add_restaurant": [
+    "long_name",
+    "rating",
+    "location"
+  ],
+  "add_service": [
+    "id",
+    "long_name",
+    "manager"
+  ],
+  "add_location": [
+    "label",
+    "x_coord",
+    "space"
+  ],
+  "start_funding": [
+    "owner",
+    "long_name"
+  ],
+  "hire_employee": [
+    "username",
+    "id"
+  ],
+  "fire_employee": [
+    "username",
+    "id"
+  ],
+  "manage_service": [
+    "username",
+    "id"
+  ],
+  "takeover_drone": [
+    "username",
+    "id"
+  ],
+  "join_swarm": [
+    "id",
+    "tag"
+  ],
+  "leave_swarm": [
+    "id",
+    "swarm_tag"
+  ],
+  "load_drone": [
+    "id",
+    "tag",
+    "barcode",
+    "price"
+  ],
+  "refuel_drone": [
+    "id",
+    "tag",
+    "more_fuel"
+  ],
+  "fly_drone": [
+    "id",
+    "tag",
+    "destination"
+  ],
+  "purchase_ingredient": [
+    "long_name",
+    "id",
+    "barcode",
+    "quantity"
+  ],
+  "remove_ingredient": [
+    "barcode"
+  ],
+  "remove_drone": [
+    "id",
+    "tag"
+  ],
+  "remove_pilot_role": [
+    "username"
+  ]
+}
