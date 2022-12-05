@@ -16,6 +16,5 @@ db = SQLAlchemy(app, metadata=metadata_obj)
 
 # Connect to the database
 connection = engine.connect()
-raw_connection = engine.raw_connection()
-cursor = raw_connection.cursor()
+
 
