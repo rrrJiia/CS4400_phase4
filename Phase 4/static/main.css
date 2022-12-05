@@ -1,11 +1,12 @@
 body {
-    background: #464866;
-    color: #25274d;
+    background: #FFC0CB;
+    color: #0c94c6;
     margin-top: 3.5rem;
   }
   
   h1, h2, h4, h5, h6 {
     color: #25274d;
+    padding: 15px;
   }
 
   h3 {
@@ -17,15 +18,15 @@ body {
   }
   
   .bg-steel {
-    background-color: #5f788a;
+    background-color: #FFC0CB;
   }
 
   .bg-primary-color-gray {
-      background-color: #464866;
+      background-color: #FFC0CB;
   }
 
   .bg-primary-color {
-      background-color: #25274d;
+      background-color: #FFC0CB;
   }
 
   .bg-neutral-color {
@@ -41,11 +42,11 @@ body {
   }
 
   .text-muted {
-    color: #5f788a;
+    color: #952ede;
   }
 
   .text-main {
-    color: #fafafa;
+    color: #2dc3fa;
   }
 
   .text-negative {
@@ -53,7 +54,7 @@ body {
   }
 
   .text-selected {
-    color: #2e9cca;
+    color: #2dc3fa;
   }
   
   .text-selected-2 {
@@ -81,7 +82,7 @@ body {
   }
   
   .article-title {
-    color: #444444;
+    color: #FFC0CB;
   }
   
   a.article-title:hover {

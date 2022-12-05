@@ -1,23 +1,186 @@
 {% extends "layout.html" %}
 {% block content %}
 
-    <form method="POST">
-        <input type="text" name="procedure" placeholder="procedure" />
-        <input type="text" name="arg1" placeholder="arg1" />
-        <input type="text" name="arg2" placeholder="arg2" />
-        <input type="text" name="arg3" placeholder="arg3" />
-        <input type="text" name="arg4" placeholder="arg4" />
-        <input type="text" name="arg5" placeholder="arg5" />
-        <input type="text" name="arg6" placeholder="arg6" />
-        <input type="text" name="arg7" placeholder="arg7" />
-        <input type="text" name="arg8" placeholder="arg8" />
-        <input type="text" name="arg9" placeholder="arg9" />
-        <input type="text" name="arg10" placeholder="arg10" />
 
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+<style>
+html, body {
+min-height: 100%;
+}
+body, form, input, select, p { 
+padding: 50px;
+margin: 0;
+outline: none;
+font-family: Roboto, Arial, sans-serif;
+font-size: 14px;
+color: #666;
+}
+form, div{ 
+    padding: 8px;
+    margin: 0;
+    outline: none;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 14px;
+    color: #666;
+    }
+h1 {
+margin: 0;
+font-weight: 400;
+}
+h3 {
+margin: 12px 12px;
+color: #2dc3fa;
+}
+.main-block {
+display: flex;
+justify-content: center;
+align-items: center;
+background: #fff;
+}
+form {
+width: 80%;
+padding: 10px;
+}
+fieldset {
+border: none;
+border-top: 1px solid #8ebf42;
+}
+.account-details, .personal-details {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+}
+.account-details >div, .personal-details >div >div {
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+}
+.account-details >div, .personal-details >div, input, label {
+width: 100%;
+}
+label {
+padding: 0 5px;
+text-align: right;
+vertical-align: middle;
+}
+input {
+padding: 5px;
+vertical-align: middle;
+}
+.checkbox {
+margin-bottom: 10px;
+}
+select, .children, .gender, .bdate-block {
+width: calc(100% + 26px);
+padding: 5px 0;
+}
+select {
+background: transparent;
+}
+.gender input {
+width: auto;
+} 
+.gender label {
+padding: 0 5px 0 0;
+} 
+.bdate-block {
+display: flex;
+justify-content: space-between;
+}
+.birthdate select.day {
+width: 35px;
+}
+.birthdate select.mounth {
+width: calc(100% - 94px);
+}
+.birthdate input {
+width: 38px;
+vertical-align: unset;
+}
+.checkbox input, .children input {
+width: auto;
+margin: -2px 10px 0 0;
+}
+.checkbox a {
+color: #8ebf42;
+}
+.checkbox a:hover {
+color: #82b534;
+}
+button {
+width: 100%;
+padding: 10px 5px;
+margin: 10px auto;
+border-radius: 5px; 
+border: none;
+background: #8ebf42; 
+font-size: 14px;
+font-weight: 600;
+color: #fff;
+}
+button:hover {
+background: #82b534;
+}
+@media (min-width: 568px) {
+.account-details >div, .personal-details >div {
+width: 50%;
+}
+label {
+width: 40%;
+}
+input {
+width: 60%;
+}
+
+}
+</style>
+</head>
+<body>
+<div class="main-block">
+<form action="/">
+
+<fieldset>
+
+<legend>
+<h3>Run Procedure</h3>
+</legend>
+<div class="Procedures">
+    
+    <div>  
+        <form method="POST"> 
+        <div><label>Procedure</label><input type="text" name="procedure" required></div>
+        <div><label>Arg1</label><input type="text" name="arg2"></div>
+        <div><label>Arg2</label><input type="text" name="arg3"></div>
+        <div><label>Arg3</label><input type="text" name="arg4"></div>
+        <div><label>Arg4</label><input type="text" name="arg5"></div>
+        <div><label>Arg5</label><input type="text" name="arg6"></div>
+        <div><label>Arg6</label><input type="text" name="arg7"></div>
+        <div><label>Arg7</label><input type="text" name="arg8"></div>
+        <div><label>Arg8</label><input type="text" name="arg9"></div>
+        <div><label>Arg9</label><input type="text" name="arg10"></div>
+        <div><label>Arg10</label><input type="text" name="arg11"></div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-    </form>
+        </form>
+    </div>
+    
+<div>
+
+</div>
+</fieldset>
+<fieldset>
+
+
+
+</fieldset>
+
+</form>
+</div> 
+</body>
+</html>
 
 {% endblock content %}
 
