@@ -179,6 +179,7 @@
   "add_employee": [
     "username",
     "first_name",
+    "last_name",
     "address",
     "birthdate",
     "taxID",
@@ -188,35 +189,41 @@
   ],
   "add_pilot_role": [
     "username",
-    "licenseID"
+    "licenseID",
+    "experience"
   ],
   "add_worker_role": [
     "username"
   ],
   "add_ingredient": [
     "barcode",
-    "iname"
+    "iname",
+    "weight"
   ],
   "add_drone": [
     "id",
     "tag",
     "fuel",
+    "capacity",
     "sales",
     "flown_by"
   ],
   "add_restaurant": [
     "long_name",
     "rating",
+    "money spent",
     "location"
   ],
   "add_service": [
     "id",
     "long_name",
+    "home base",
     "manager"
   ],
   "add_location": [
     "label",
     "x_coord",
+    "y_coord",
     "space"
   ],
   "start_funding": [
@@ -237,11 +244,13 @@
   ],
   "takeover_drone": [
     "username",
-    "id"
+    "id",
+    "tag"
   ],
   "join_swarm": [
     "id",
-    "tag"
+    "tag",
+    "leader tag"
   ],
   "leave_swarm": [
     "id",
@@ -251,6 +260,7 @@
     "id",
     "tag",
     "barcode",
+    "more_packages",
     "price"
   ],
   "refuel_drone": [
@@ -266,6 +276,7 @@
   "purchase_ingredient": [
     "long_name",
     "id",
+    "tag",
     "barcode",
     "quantity"
   ],
@@ -295,7 +306,7 @@
             }
             updateVisiblilties('0');
         };
-    {#    change input labels when select changes#}
+    //{#    change input labels when select changes#}
         function changeLabels() {
             const _select = document.getElementById('dropdown');
             const _selected = _select.options[_select.selectedIndex].value;
