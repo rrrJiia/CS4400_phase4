@@ -1,186 +1,381 @@
 {% extends "layout.html" %}
+
+
 {% block content %}
 
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet'
+          type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <style>
+        html, body {
+            min-height: 100%;
+        }
+
+        body, form, input, select, p {
+            padding: 50px;
+            margin: 0;
+            outline: none;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 14px;
+            color: #666;
+        }
+
+        form, div {
+            padding: 8px;
+            margin: 0;
+            outline: none;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 14px;
+            color: #666;
+        }
+
+        h1 {
+            margin: 0;
+            font-weight: 400;
+        }
+
+        h3 {
+            margin: 12px 12px;
+            color: #2dc3fa;
+        }
+
+        .main-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+        }
+
+        form {
+            width: 80%;
+            padding: 10px;
+        }
+
+        fieldset {
+            border: none;
+            border-top: 1px solid #8ebf42;
+        }
+
+        .account-details, .personal-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .account-details > div, .personal-details > div > div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .account-details > div, .personal-details > div, input, label {
+            width: 100%;
+        }
+
+        label {
+            padding: 0 5px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        input {
+            padding: 5px;
+            vertical-align: middle;
+        }
+
+        .checkbox {
+            margin-bottom: 10px;
+        }
+
+        select, .children, .gender, .bdate-block {
+            width: 50%;
+            padding: 5px;
+        }
+
+        select {
+            background: transparent;
+        }
+
+        .gender input {
+            width: auto;
+        }
+
+        .gender label {
+            padding: 0 5px 0 0;
+        }
+
+        .bdate-block {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .birthdate select.day {
+            width: 35px;
+        }
+
+        .birthdate select.mounth {
+            width: calc(100% - 94px);
+        }
+
+        .birthdate input {
+            width: 38px;
+            vertical-align: unset;
+        }
+
+        .checkbox input, .children input {
+            width: auto;
+            margin: -2px 10px 0 0;
+        }
+
+        .checkbox a {
+            color: #8ebf42;
+        }
+
+        .checkbox a:hover {
+            color: #82b534;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 5px;
+            margin: 10px auto;
+            border-radius: 5px;
+            border: none;
+            background: #8ebf42;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        button:hover {
+            background: #82b534;
+        }
+
+        @media (min-width: 568px) {
+            .account-details > div, .personal-details > div {
+                width: 50%;
+            }
+
+            label {
+                width: 40%;
+            }
+
+            input {
+                width: 60%;
+            }
+
+        }
+    </style>
+    <head>
+        <script type="text/javascript">
+        const params = {
+  "add_owner": [
+    "username",
+    "first_name",
+    "last_name",
+    "address",
+    "birthdate"
+  ],
+  "add_employee": [
+    "username",
+    "first_name",
+    "address",
+    "birthdate",
+    "taxID",
+    "hired",
+    "employee_experience",
+    "salary"
+  ],
+  "add_pilot_role": [
+    "username",
+    "licenseID"
+  ],
+  "add_worker_role": [
+    "username"
+  ],
+  "add_ingredient": [
+    "barcode",
+    "iname"
+  ],
+  "add_drone": [
+    "id",
+    "tag",
+    "fuel",
+    "sales",
+    "flown_by"
+  ],
+  "add_restaurant": [
+    "long_name",
+    "rating",
+    "location"
+  ],
+  "add_service": [
+    "id",
+    "long_name",
+    "manager"
+  ],
+  "add_location": [
+    "label",
+    "x_coord",
+    "space"
+  ],
+  "start_funding": [
+    "owner",
+    "long_name"
+  ],
+  "hire_employee": [
+    "username",
+    "id"
+  ],
+  "fire_employee": [
+    "username",
+    "id"
+  ],
+  "manage_service": [
+    "username",
+    "id"
+  ],
+  "takeover_drone": [
+    "username",
+    "id"
+  ],
+  "join_swarm": [
+    "id",
+    "tag"
+  ],
+  "leave_swarm": [
+    "id",
+    "swarm_tag"
+  ],
+  "load_drone": [
+    "id",
+    "tag",
+    "barcode",
+    "price"
+  ],
+  "refuel_drone": [
+    "id",
+    "tag",
+    "more_fuel"
+  ],
+  "fly_drone": [
+    "id",
+    "tag",
+    "destination"
+  ],
+  "purchase_ingredient": [
+    "long_name",
+    "id",
+    "barcode",
+    "quantity"
+  ],
+  "remove_ingredient": [
+    "barcode"
+  ],
+  "remove_drone": [
+    "id",
+    "tag"
+  ],
+  "remove_pilot_role": [
+    "username"
+  ]
+}
+        window.onload = function() {
+            const _select = document.getElementById('dropdown');
+            // Loop through the options and add them to the select element
+            const option = document.createElement('option');
+            _select.appendChild(option);
+            option.value = '0';
+            option.text = 'please select a procedure';
+            for (const a in params) {
+                const option = document.createElement('option');
+                _select.appendChild(option);
+                option.value = a;
+                option.text = a;
+            }
+            updateVisiblilties('0');
+        };
+    {#    change input labels when select changes#}
+        function changeLabels() {
+            const _select = document.getElementById('dropdown');
+            const _selected = _select.options[_select.selectedIndex].value;
+            updateVisiblilties(_selected);
+        }
+
+        function updateVisiblilties(_selected) {
+            let labels = document.getElementsByTagName('label');
+            labels = Array.from(labels).filter(label => label.htmlFor !== 'dropdown');
+            const inputs = Array.from(document.getElementsByTagName('input'));
+            console.log(_selected)
+            console.log(_selected === '0')
+            if (_selected === '0') {
+                labels.forEach(label => label.style.display = 'none');
+                inputs.forEach(input => input.style.display = 'none');
+                return;
+            }
+            const _params = params[_selected];
+
+            for (let i = 0; i < labels.length; i++) {
+                labels[i].innerHTML = _params[i];
+                if (_params[i] === undefined) {
+                    labels[i].style.display = 'none';
+                    inputs[i].style.display = 'none';
+                } else  {
+                    labels[i].style.display = 'inline-block';
+                    inputs[i].style.display = 'inline-block';
+                }
+            }
+        }
 
 
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-<style>
-html, body {
-min-height: 100%;
-}
-body, form, input, select, p { 
-padding: 50px;
-margin: 0;
-outline: none;
-font-family: Roboto, Arial, sans-serif;
-font-size: 14px;
-color: #666;
-}
-form, div{ 
-    padding: 8px;
-    margin: 0;
-    outline: none;
-    font-family: Roboto, Arial, sans-serif;
-    font-size: 14px;
-    color: #666;
-    }
-h1 {
-margin: 0;
-font-weight: 400;
-}
-h3 {
-margin: 12px 12px;
-color: #2dc3fa;
-}
-.main-block {
-display: flex;
-justify-content: center;
-align-items: center;
-background: #fff;
-}
-form {
-width: 80%;
-padding: 10px;
-}
-fieldset {
-border: none;
-border-top: 1px solid #8ebf42;
-}
-.account-details, .personal-details {
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-}
-.account-details >div, .personal-details >div >div {
-display: flex;
-align-items: center;
-margin-bottom: 10px;
-}
-.account-details >div, .personal-details >div, input, label {
-width: 100%;
-}
-label {
-padding: 0 5px;
-text-align: right;
-vertical-align: middle;
-}
-input {
-padding: 5px;
-vertical-align: middle;
-}
-.checkbox {
-margin-bottom: 10px;
-}
-select, .children, .gender, .bdate-block {
-width: calc(100% + 26px);
-padding: 5px 0;
-}
-select {
-background: transparent;
-}
-.gender input {
-width: auto;
-} 
-.gender label {
-padding: 0 5px 0 0;
-} 
-.bdate-block {
-display: flex;
-justify-content: space-between;
-}
-.birthdate select.day {
-width: 35px;
-}
-.birthdate select.mounth {
-width: calc(100% - 94px);
-}
-.birthdate input {
-width: 38px;
-vertical-align: unset;
-}
-.checkbox input, .children input {
-width: auto;
-margin: -2px 10px 0 0;
-}
-.checkbox a {
-color: #8ebf42;
-}
-.checkbox a:hover {
-color: #82b534;
-}
-button {
-width: 100%;
-padding: 10px 5px;
-margin: 10px auto;
-border-radius: 5px; 
-border: none;
-background: #8ebf42; 
-font-size: 14px;
-font-weight: 600;
-color: #fff;
-}
-button:hover {
-background: #82b534;
-}
-@media (min-width: 568px) {
-.account-details >div, .personal-details >div {
-width: 50%;
-}
-label {
-width: 40%;
-}
-input {
-width: 60%;
-}
 
-}
-</style>
-</head>
-<body>
-<div class="main-block">
-<form action="/">
+    </script>
+    <head/>
+    <body>
+    <div class="main-block">
+        <form action="/">
+            <fieldset>
 
-<fieldset>
+                <legend>
+                    <h3>Run Procedure</h3>
+                </legend>
+                <div class="Procedures">
 
-<legend>
-<h3>Run Procedure</h3>
-</legend>
-<div class="Procedures">
-    
-    <div>  
-        <form method="POST"> 
-        <div><label>Procedure</label><input type="text" name="procedure" required></div>
-        <div><label>Arg1</label><input type="text" name="arg1"></div>
-        <div><label>Arg2</label><input type="text" name="arg2"></div>
-        <div><label>Arg3</label><input type="text" name="arg3"></div>
-        <div><label>Arg4</label><input type="text" name="arg4"></div>
-        <div><label>Arg5</label><input type="text" name="arg5"></div>
-        <div><label>Arg6</label><input type="text" name="arg6"></div>
-        <div><label>Arg7</label><input type="text" name="arg7"></div>
-        <div><label>Arg8</label><input type="text" name="arg8"></div>
-        <div><label>Arg9</label><input type="text" name="arg9"></div>
-        <div><label>Arg10</label><input type="text" name="arg10"></div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
+                    <div>
+                        <form method="POST">
+                            <div>
+                                <label for="dropdown">Procedure:</label>
+                                <select id="dropdown" onchange="changeLabels()"></select>
+                            </div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </fieldset>
+            <fieldset>
+
+
+            </fieldset>
+
         </form>
     </div>
-    
-<div>
-
-</div>
-</fieldset>
-<fieldset>
-
-
-
-</fieldset>
-
-</form>
-</div> 
-</body>
-</html>
+    </body>
+    </html>
 
 {% endblock content %}
-
