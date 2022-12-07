@@ -22,7 +22,7 @@
 <body>
     <!-- Header -->
     <nav class="navbar navbar-expand-md navbar-dark bg-primary-color fixed-top">
-        <img src="static/images/newlogo.png" style = "width:5%">
+        <img src="static/images/newlogo.png" style = "width:55px">
         <a href="/home" class="navbar-brand font-weight-bold">Restaurant Supply Express! Drone Delivery</a>
         
         <div class="collapse navbar-collapse"></div>
@@ -69,25 +69,15 @@
                 </div>
             </nav>
 
-            
+
             <!-- Page Content -->
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 bg-neutral-color">
                 {% block content %}{% endblock content %}
                 <div class="modal fade" id="modal-logout" tabindex="-1" aria-labelledby="logoutLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title text-negative" id="logoutLabel">Are you sure you want to logout?</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
                             <div class="modal-body">
                                 {{ modal_messages() }}
-                                <button type="button" class="btn btn-outline-dark me-2" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                <a class="nav-item" href="/logout">
-                                    <button type="button" class="btn btn-danger me-2">Confirm</button>
-                                </a>
                             </div>
                         </div>
                     </div>

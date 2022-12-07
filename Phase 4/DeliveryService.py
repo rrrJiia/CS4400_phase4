@@ -50,8 +50,6 @@ def run_procedure():
                         args.append(request.form[key])
                     else:
                         args.append('\''+request.form[key]+'\'')
-        print(procedure)
-        print(args)
         call_stored_procedure(procedure, args)
 
     return render_template("run_procedure.html")

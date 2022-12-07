@@ -11,14 +11,6 @@
             min-height: 100%;
         }
 
-        body, form, input, select, p {
-            padding: 50px;
-            margin: 0;
-            outline: none;
-            font-family: Roboto, Arial, sans-serif;
-            font-size: 14px;
-            color: #666;
-        }
 
         form, div {
             padding: 8px;
@@ -168,223 +160,227 @@
     </style>
     <head>
         <script type="text/javascript">
-        const params = {
-  "add_owner": [
-    "username",
-    "first_name",
-    "last_name",
-    "address",
-    "birthdate"
-  ],
-  "add_employee": [
-    "username",
-    "first_name",
-    "last_name",
-    "address",
-    "birthdate",
-    "taxID",
-    "hired",
-    "employee_experience",
-    "salary"
-  ],
-  "add_pilot_role": [
-    "username",
-    "licenseID",
-    "experience"
-  ],
-  "add_worker_role": [
-    "username"
-  ],
-  "add_ingredient": [
-    "barcode",
-    "iname",
-    "weight"
-  ],
-  "add_drone": [
-    "id",
-    "tag",
-    "fuel",
-    "capacity",
-    "sales",
-    "flown_by"
-  ],
-  "add_restaurant": [
-    "long_name",
-    "rating",
-    "money spent",
-    "location"
-  ],
-  "add_service": [
-    "id",
-    "long_name",
-    "home base",
-    "manager"
-  ],
-  "add_location": [
-    "label",
-    "x_coord",
-    "y_coord",
-    "space"
-  ],
-  "start_funding": [
-    "owner",
-    "long_name"
-  ],
-  "hire_employee": [
-    "username",
-    "id"
-  ],
-  "fire_employee": [
-    "username",
-    "id"
-  ],
-  "manage_service": [
-    "username",
-    "id"
-  ],
-  "takeover_drone": [
-    "username",
-    "id",
-    "tag"
-  ],
-  "join_swarm": [
-    "id",
-    "tag",
-    "leader tag"
-  ],
-  "leave_swarm": [
-    "id",
-    "swarm_tag"
-  ],
-  "load_drone": [
-    "id",
-    "tag",
-    "barcode",
-    "more_packages",
-    "price"
-  ],
-  "refuel_drone": [
-    "id",
-    "tag",
-    "more_fuel"
-  ],
-  "fly_drone": [
-    "id",
-    "tag",
-    "destination"
-  ],
-  "purchase_ingredient": [
-    "long_name",
-    "id",
-    "tag",
-    "barcode",
-    "quantity"
-  ],
-  "remove_ingredient": [
-    "barcode"
-  ],
-  "remove_drone": [
-    "id",
-    "tag"
-  ],
-  "remove_pilot_role": [
-    "username"
-  ]
-}
-        window.onload = function() {
-            const _select = document.getElementById('dropdown');
-            // Loop through the options and add them to the select element
-            const option = document.createElement('option');
-            _select.appendChild(option);
-            option.value = '0';
-            option.text = 'please select a procedure';
-            for (const a in params) {
+            const params = {
+                "add_owner": [
+                    "username",
+                    "first_name",
+                    "last_name",
+                    "address",
+                    "birthdate"
+                ],
+                "add_employee": [
+                    "username",
+                    "first_name",
+                    "last_name",
+                    "address",
+                    "birthdate",
+                    "taxID",
+                    "hired",
+                    "employee_experience",
+                    "salary"
+                ],
+                "add_pilot_role": [
+                    "username",
+                    "licenseID",
+                    "experience"
+                ],
+                "add_worker_role": [
+                    "username"
+                ],
+                "add_ingredient": [
+                    "barcode",
+                    "iname",
+                    "weight"
+                ],
+                "add_drone": [
+                    "id",
+                    "tag",
+                    "fuel",
+                    "capacity",
+                    "sales",
+                    "flown_by"
+                ],
+                "add_restaurant": [
+                    "long_name",
+                    "rating",
+                    "money spent",
+                    "location"
+                ],
+                "add_service": [
+                    "id",
+                    "long_name",
+                    "home base",
+                    "manager"
+                ],
+                "add_location": [
+                    "label",
+                    "x_coord",
+                    "y_coord",
+                    "space"
+                ],
+                "start_funding": [
+                    "owner",
+                    "long_name"
+                ],
+                "hire_employee": [
+                    "username",
+                    "id"
+                ],
+                "fire_employee": [
+                    "username",
+                    "id"
+                ],
+                "manage_service": [
+                    "username",
+                    "id"
+                ],
+                "takeover_drone": [
+                    "username",
+                    "id",
+                    "tag"
+                ],
+                "join_swarm": [
+                    "id",
+                    "tag",
+                    "leader tag"
+                ],
+                "leave_swarm": [
+                    "id",
+                    "swarm_tag"
+                ],
+                "load_drone": [
+                    "id",
+                    "tag",
+                    "barcode",
+                    "more_packages",
+                    "price"
+                ],
+                "refuel_drone": [
+                    "id",
+                    "tag",
+                    "more_fuel"
+                ],
+                "fly_drone": [
+                    "id",
+                    "tag",
+                    "destination"
+                ],
+                "purchase_ingredient": [
+                    "long_name",
+                    "id",
+                    "tag",
+                    "barcode",
+                    "quantity"
+                ],
+                "remove_ingredient": [
+                    "barcode"
+                ],
+                "remove_drone": [
+                    "id",
+                    "tag"
+                ],
+                "remove_pilot_role": [
+                    "username"
+                ]
+            }
+            window.onload = function () {
+                const _select = document.getElementById('dropdown');
+                // Loop through the options and add them to the select element
                 const option = document.createElement('option');
                 _select.appendChild(option);
-                option.value = a;
-                option.text = a;
-            }
-            updateVisiblilties('0');
-        };
-    //{#    change input labels when select changes#}
-        function changeLabels() {
-            const _select = document.getElementById('dropdown');
-            const _selected = _select.options[_select.selectedIndex].value;
-            updateVisiblilties(_selected);
-        }
+                option.value = '0';
+                option.text = 'please select a procedure';
+                for (const a in params) {
+                    const option = document.createElement('option');
+                    _select.appendChild(option);
+                    option.value = a;
+                    option.text = a;
+                }
+                updateVisibilities('0');
+            };
 
-        function updateVisiblilties(_selected) {
-            let labels = document.getElementsByTagName('label');
-            labels = Array.from(labels).filter(label => label.htmlFor !== 'dropdown');
-            const inputs = Array.from(document.getElementsByTagName('input'));
-            console.log(_selected)
-            console.log(_selected === '0')
-            if (_selected === '0') {
-                labels.forEach(label => label.style.display = 'none');
-                inputs.forEach(input => input.style.display = 'none');
-                return;
+            function changeLabels() {
+                const _select = document.getElementById('dropdown');
+                const _selected = _select.options[_select.selectedIndex].value;
+                updateVisibilities(_selected);
             }
-            const _params = params[_selected];
 
-            for (let i = 0; i < labels.length; i++) {
-                labels[i].innerHTML = _params[i];
-                if (_params[i] === undefined) {
-                    labels[i].style.display = 'none';
-                    inputs[i].style.display = 'none';
-                } else  {
-                    labels[i].style.display = 'inline-block';
-                    inputs[i].style.display = 'inline-block';
+            function updateVisibilities(_selected) {
+                let labels = document.getElementsByTagName('label');
+                labels = Array.from(labels).filter(label => label.htmlFor !== 'dropdown');
+                const inputs = Array.from(document.getElementsByTagName('input'));
+                if (_selected === '0') {
+                    labels.forEach(label => label.style.display = 'none');
+                    inputs.forEach(input => input.style.display = 'none');
+                    return;
+                }
+                const _params = params[_selected];
+
+                for (let i = 0; i < labels.length; i++) {
+                    labels[i].innerHTML = _params[i];
+                    if (_params[i] === undefined) {
+                        labels[i].style.display = 'none';
+                        inputs[i].style.display = 'none';
+                    } else {
+                        labels[i].style.display = 'inline-block';
+                        inputs[i].style.display = 'inline-block';
+                    }
                 }
             }
-        }
 
 
-
-    </script>
-    <head/>
+        </script>
+        <head/>
     <body>
     <div class="main-block">
-        <form action="/">
-            <fieldset>
-
-                <legend>
-                    <h3>Run Procedure</h3>
-                </legend>
-                <div class="Procedures">
-
-                    <div>
-                        <form method="POST">
-                            <div>
-                                <label for="dropdown">Procedure:</label>
-                                <select id="dropdown" onchange="changeLabels()"></select>
-                            </div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div><label style="display: none"></label><input type="text" style="display: none"></div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-
+        {#        fieldset take the whole width of the div#}
+        <fieldset style="width: 100%;">
+            <legend>
+                <h3>Run Procedure</h3>
+            </legend>
+            <div class="Procedures">
+                <div>
+                    <form action="" method="POST">
+                        <div>
+                            <label for="dropdown">Procedure:</label>
+                            <select id="dropdown" name="procedure" onchange="changeLabels()"></select>
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg1">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg2">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg3">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg4">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg5">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg6">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg7">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg8">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg9">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg10">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg11">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg12">
+                        </div>
+                        <div><label style="display: none"></label><input type="text" style="display: none" name="arg13">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
                 </div>
-            </fieldset>
-            <fieldset>
 
-
-            </fieldset>
-
-        </form>
+            </div>
+        </fieldset style="width: 100%;">
+        <fieldset>
+        </fieldset>
     </div>
     </body>
     </html>
