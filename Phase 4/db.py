@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, MetaData, text
 from sqlalchemy_utils import database_exists, create_database
 
-conn = "mysql+pymysql://root:1015@localhost:3306/restaurant_supply_express"
+conn = "mysql+pymysql://root:1234@localhost:3306/restaurant_supply_express"
 engine = create_engine(conn, echo=True, pool_recycle=1800)
 
 metadata_obj = MetaData()
