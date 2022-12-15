@@ -21,7 +21,11 @@ pip install -r requirements.txt
 ```
 ## ii. Instructions to run your app  
 After setting up the app,
-Go to the db.py file and edit the string at the top with your MySQL password and hosting port. It should look like this: conn = "mysql+pymysql://root:[YOUR PASSWORD HERE]@localhost:[YOUR PORT NUMBER HERE]/restaurant_supply_express"
+Go to the db.py file and edit the string at the top with your MySQL password and hosting port. It should look like this: conn = "mysql+pymysql://root:[YOUR SQL PASSWORD HERE]@localhost:[YOUR PORT NUMBER HERE]/restaurant_supply_express"
+Then, you should be fine by running the 
+```
+python3 DeliveryService.py
+```
 Then you should be able to open the app in you local browser with the link http://localhost:5000/ 
 
 
