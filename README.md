@@ -26,7 +26,7 @@ Then you should be able to open the app in you local browser with the link http:
 
 
 ## iii. Brief explanation of what technologies you used and how you accomplished your 
-application (don’t spend too much time on this)  
+application
 Frontend: 
 HTML, CSS, AJAX, etc
 Backend: 
@@ -36,5 +36,3 @@ Han Bao: Performed work in general aesthetics website layout, database backend s
 Dian Yang: Performed work in modal support, backend querying SQL commands and backend troubleshooting.
 Xiang Li; Performed work in general frontend website layout, modal support, and backend querying SQL commands.
 Ruoran Jia: Performed work in backend querying SQL commands.
-
-
