@@ -29,14 +29,17 @@ python3 DeliveryService.py
 Then you should be able to open the app in you local browser with the link http://localhost:5000/ 
 
 
-## iii. Brief explanation of what technologies you used and how you accomplished your 
-application
+## iii. Brief explanation of what technologies you used and how you accomplished your application
 Frontend: 
 HTML, CSS, AJAX, etc
+
 Backend: 
 Flask, SQLAlchemy
 ## iv. Explanation of how work was distributed among the team members  
 Han Bao: Performed work in general aesthetics website layout, database backend support, and backend troubleshooting.
+
 Dian Yang: Performed work in modal support, backend querying SQL commands and backend troubleshooting.
+
 Xiang Li; Performed work in general frontend website layout, modal support, and backend querying SQL commands.
+
 Ruoran Jia: Performed work in backend querying SQL commands.
